@@ -1,7 +1,7 @@
-const mongoose = require('mongoose')
-const validator = require('validator')
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
+const mongoose = require('mongoose');
+const validator = require('validator');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 //username, pass, name,status,type
 const userSchema = mongoose.Schema({
     firstname: {
@@ -24,6 +24,16 @@ const userSchema = mongoose.Schema({
         //required: true,
         minLength: 7
     },
+    isMod: {
+        type: Boolean,
+        //required: true,
+        default:false
+    },
+    isAdmin: {
+        type: Boolean,
+        //required: true,
+        default:false
+    },
     
     tokens: [
         {
@@ -33,7 +43,9 @@ const userSchema = mongoose.Schema({
             }
         }
     ]
-})
+},{
+    timestamps: true
+});
 
 userSchema.pre('save', async function (next) {
     // Hash the password before saving the user model
@@ -57,9 +69,9 @@ userSchema.methods.generateAuthToken = async function () {
     return token
 }
 
-userSchema.statics.findByCredentials = async (email, password) => {
-    // Search for a user by email and password.
-    const user = await User.findOne({email})
+userSchema.statics.findByCredentials = async (username, password) => {
+    // Search for a user by username and password.
+    const user = await User.findOne({username})
     if (!user) {
         throw new Error('Invalid login credentials')
     }
