@@ -10,6 +10,13 @@ const router = Router()
  
 const handlePageError = (res, e) => res.setStatus(500).send(e.message)
  
+router.get('/users', (req, res) => {
+  User.find().then((user) => {
+    res.send({user});
+  }, (e) => {
+    res.status(400).send(e);
+  });
+});
 router.post(
   '/users',
   async (req, res) => {
@@ -30,7 +37,7 @@ router.put(
   '/users/:id',
   async (req, res) => {
     try {
-      await Post.findByIdAndUpdate(req.params.id, req.body)
+      await User.findByIdAndUpdate(req.params.id, req.body)
  
       return res.json({ message: 'Updated user successfully!' })
     } catch (e) {
@@ -39,6 +46,24 @@ router.put(
   }
 )
 
+router.delete('/users/:id', (req, res) => {
+  var query = { id: req.params.id };
+  User.findOneAndRemove(query, 
+    (e, raw) => {
+      if (e) {
+        res.status(400).send('Invalid username supplied');
+      }
+    res.send(raw);
+  });
+});
+
+router.get('/places', (req, res) => {
+  Place.find().then((place) => {
+    res.send({place});
+  }, (e) => {
+    res.status(400).send(e);
+  });
+});
 router.post(
     '/places',
     async (req, res) => {
@@ -59,7 +84,7 @@ router.post(
     '/places/:id',
     async (req, res) => {
       try {
-        await Post.findByIdAndUpdate(req.params.id, req.body)
+        await Place.findByIdAndUpdate(req.params.id, req.body)
    
         return res.json({ message: 'Updated place successfully!' })
       } catch (e) {
@@ -68,6 +93,34 @@ router.post(
     }
   )
 
+  router.delete('/places/:id', (req, res) => {
+    var query = { id: req.params.id };
+    Place.findOneAndRemove(query, 
+      (e, raw) => {
+        if (e) {
+          res.status(400).send('Invalid place supplied');
+        }
+      res.send(raw);
+    });
+  });
+
+  router.get('/foods', (req, res) => {
+    Food.find().then((food) => {
+      res.send({food});
+    }, (e) => {
+      res.status(400).send(e);
+    });
+  });
+
+  router.get('/foods/:placeID', (req, res) => {
+    var placeID = req.params.placeID;
+  
+    Food.find({placeID:placeID}).then((food) => {
+      res.send(food);
+    }, (e) => {
+      res.status(400).send(e);
+    });
+  });
   router.post(
     '/foods',
     async (req, res) => {
@@ -88,7 +141,7 @@ router.post(
     '/foods/:id',
     async (req, res) => {
       try {
-        await Post.findByIdAndUpdate(req.params.id, req.body)
+        await Food.findByIdAndUpdate(req.params.id, req.body)
    
         return res.json({ message: 'Updated food successfully!' })
       } catch (e) {
@@ -96,6 +149,17 @@ router.post(
       }
     }
   )
+
+  router.delete('/foods/:id', (req, res) => {
+    var query = { id: req.params.id };
+    Food.findOneAndRemove(query, 
+      (e, raw) => {
+        if (e) {
+          res.status(400).send('Invalid food supplied');
+        }
+      res.send(raw);
+    });
+  });
 
   router.post(
     '/hotels',
@@ -117,7 +181,7 @@ router.post(
     '/hotels/:id',
     async (req, res) => {
       try {
-        await Post.findByIdAndUpdate(req.params.id, req.body)
+        await Hotel.findByIdAndUpdate(req.params.id, req.body)
    
         return res.json({ message: 'Updated hotel successfully!' })
       } catch (e) {
@@ -125,4 +189,15 @@ router.post(
       }
     }
   )
+
+  router.delete('/hotels/:id', (req, res) => {
+    var query = { id: req.params.id };
+    Hotel.findOneAndRemove(query, 
+      (e, raw) => {
+        if (e) {
+          res.status(400).send('Invalid hotel supplied');
+        }
+      res.send(raw);
+    });
+  });
 export default router
