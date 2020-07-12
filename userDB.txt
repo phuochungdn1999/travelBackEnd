@@ -1,0 +1,40 @@
+{
+    "Name": "Le Thai Bao",
+    "Username": "baone99",
+    "Password": "cailontao",
+    "Created_Date": "01/20/1999",
+    "Type_User": "Admin",
+    "Status_User": true
+}
+{
+    "Name": "Pham Xuan Sang",
+    "Username": "sangne99",
+    "Password": "cailontao",
+    "Created_Date": "02/20/1999",
+    "Type_User": "Admin",
+    "Status_User": true
+}
+{
+    "Name": "Nguyen Minh Hieu",
+    "Username": "hieune99",
+    "Password": "cailontao",
+    "Created_Date": "09/25/1999",
+    "Type_User": "Admin",
+    "Status_User": true
+}
+{
+    "Name": "Phan Thanh Huy",
+    "Username": "huyne99",
+    "Password": "cailontao",
+    "Created_Date": "03/25/1999",
+    "Type_User": "Admin",
+    "Status_User": true
+}
+{
+    "Name": "Nguyen Le Phuoc Hung",
+    "Username": "hungne99",
+    "Password": "cailontao",
+    "Created_Date": "04/25/1999",
+    "Type_User": "Admin",
+    "Status_User": true
+}

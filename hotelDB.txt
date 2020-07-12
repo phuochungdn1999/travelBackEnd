@@ -1,0 +1,24 @@
+{
+    "Name":"Muong Thanh",
+    "PlaceID": "DN43",
+    "Start_Date":"07/25/2020",
+    "End_Date": "07/30/2020",
+    "Star_Rating": 5,
+    "URL_Image":"https://du-lich.chudu24.com/f/m/1712/01/1-building-2-1640307.jpg?w=800&h=500"
+}
+{
+    "Name":"Muong Thanh",
+    "PlaceID": "QN92",
+    "Start_Date":"08/25/2020",
+    "End_Date": "08/30/2020",
+    "Star_Rating": 5,
+    "URL_Image":"https://pix6.agoda.net/hotelImages/103/1030347/1030347_16030309140040415245.jpg?s=1024x768"
+}
+{
+    "Name":"Muong Thanh",
+    "PlaceID": "TH36",
+    "Start_Date":"09/25/2020",
+    "End_Date": "09/30/2020",
+    "Star_Rating": 5,
+    "URL_Image":"https://pix6.agoda.net/hotelImages/745965/-1/3c748fa5e7feede4aea8105dab5c90a5.jpg?s=1024x768"
+}
