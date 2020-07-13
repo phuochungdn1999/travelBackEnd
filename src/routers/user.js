@@ -4,14 +4,27 @@ const auth = require('../middleware/auth');
 
 const router = express.Router()
 
-router.post('/users', async (req, res) => {
+router.post('/users', async (req, res,next) => {
     // Create a new user
     try {
-        console.log(req.body);
+        console.log('TEst111');
+        User.findOne({username:req.body.username},(err,userCheck)=>{
+            console.log('Okee');
+            console.log(userCheck);
+            if(userCheck){
+                res.statusCode = 400;
+                res.setHeader('Content-Type', 'application/json');
+                err = 'User already exists';
+                res.json({err});
+                return;
+            }
+        })
+        
         const user = new User(req.body);
         await user.save();
         const token = await user.generateAuthToken();
         res.status(201).send({ user, token });
+        
     } catch (error) {
         res.status(400).send(error);
     }
@@ -37,8 +50,43 @@ router.post('/users/login', async(req, res) => {
 
 router.get('/users/me', auth, async(req, res) => {
     // View logged in user profile
-    console.log(req.user);
+    console.log(req.user.password);
     res.send(req.user);
+})
+router.post('/users/me/password', auth, async(req, res) => {
+    var id = req.user._id;
+    console.log('Id',id);
+    User.findById({_id:id}).then((user)=>{
+        if(user!=null && req.body.password!=null){
+            user.password = req.body.password;
+            
+            user.save().then((user)=>{
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.json(user);
+            },(error)=>next(error));
+            
+        }
+    })
+})
+router.post('/users/me/update', auth, async(req, res) => {
+    var id = req.user._id;
+    console.log('Id',id);
+    User.findById({_id:id}).then((user)=>{
+        if(user!=null && req.body!=null){
+            
+            if( req.body.firstname!=null)
+                user.firstname = req.body.firstname;
+            if( req.body.lastname!=null)
+                user.lastname = req.body.lastname;
+            user.save().then((user)=>{
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.json(user);
+            },(error)=>next(error));
+            
+        }
+    })
 })
 //logout loi; dung /logoutall
 router.post('/users/me/logout', auth, async (req, res) => {
@@ -67,6 +115,6 @@ router.post('/users/me/logoutall', auth, async(req, res) => {
     } catch (error) {
         res.status(500).send(error);
     }
-})
+});
 
 module.exports = router;

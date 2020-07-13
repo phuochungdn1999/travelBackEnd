@@ -7,11 +7,11 @@ const userSchema = mongoose.Schema({
     firstname: {
         type: String,
         //required: true,
-        trim: true
+       
     }
     ,lastname:{
         type:String,
-        trim: true
+        
     },
     username: {
         type: String,
