@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const app = express();
 require("dotenv/config");
 app.use(bodyParser.json());
-const port = 3000;
+const port = 3500;
 
 //import routes
 const userRoute = require("./routes/users");

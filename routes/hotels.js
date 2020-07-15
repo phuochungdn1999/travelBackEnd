@@ -26,9 +26,10 @@ router.post("/", async (req, res) => {
   const hotel = new Hotel({
     Name: req.body.Name,
     PlaceID: req.body.PlaceID,
-    Start_Date: req.body.Start_Date,
-    End_Date: req.body.End_Date,
+    Star: req.body.Star,
+    Price: req.body.Price,
     Star_Rating: req.body.Star_Rating,
+    Description: req.body.Description,
     URL_Image: req.body.URL_Image
   });
   try {
@@ -56,9 +57,10 @@ router.patch("/:hotelId", async (req, res) => {
         $set: {
           Name: req.body.Name,
           PlaceID: req.body.PlaceID,
-          Start_Date: req.body.Start_Date,
-          End_Date: req.body.End_Date,
+          Star: req.body.Star,
+          Price: req.body.Price,
           Star_Rating: req.body.Star_Rating,
+          Description: req.body.Description,
           URL_Image: req.body.URL_Image
         },
       }

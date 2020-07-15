@@ -27,7 +27,8 @@ router.post("/", async (req, res) => {
     PlaceID: req.body.PlaceID,
     Name: req.body.Name,
     Country: req.body.Country,
-    URL_Image: req.body.URL_Image
+    URL_Image: req.body.URL_Image,
+    description: req.body.description,
   });
   try {
     const saveplace = await place.save();

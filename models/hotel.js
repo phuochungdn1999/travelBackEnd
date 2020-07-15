@@ -9,16 +9,20 @@ const HotelSchema = mongoose.Schema({
     type: String,
     require: true,
   },
-  Start_Date: {
-    type: Date,
-    require: true,
+  Star:{
+    type: Number,
+    require: false,
   },
-  End_Date:{
-    type: Date,
-    require: true
+  Price:{
+    type: Number,
+    require: true,
   },
   Star_Rating: {
     type: Number,
+    require: false,
+  },
+  Description: {
+    type: String,
     require: false,
   },
   URL_Image: {

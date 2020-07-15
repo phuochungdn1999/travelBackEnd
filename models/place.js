@@ -17,5 +17,9 @@ const PlaceSchema = mongoose.Schema({
     type: String,
     require: false,
   },
+  description: {
+    type: String,
+    require: false,
+  }
 });
 module.exports = mongoose.model("Places", PlaceSchema);
