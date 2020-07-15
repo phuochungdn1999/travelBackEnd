@@ -9,7 +9,7 @@
 {
     "Name":"Banh Cha Tom",
     "PlaceID": "TH36",
-    "Description":"A traditional food of Thanhhoa"
+    "Description":"A traditional food of Thanhhoa",
     "Price":50000,
     "Star_Rating": 2,
     "URL_Image":"https://innotour.vn/wp-content/uploads/2018/12/dac-san-thanh-hoa-.jpeg"

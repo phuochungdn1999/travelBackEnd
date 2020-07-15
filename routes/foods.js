@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 //get by id
 router.get("/:placeId", async (req, res) => {
   try {
-    const food = await Food.findOne(req.params.PlaceID);
+    const food = await Food.find({PlaceID: req.params.placeId});
     res.json(food);
   } catch (err) {
     res.json({ message: err });
