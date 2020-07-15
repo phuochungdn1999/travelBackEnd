@@ -28,7 +28,7 @@ router.post("/", async (req, res) => {
     Name: req.body.Name,
     Country: req.body.Country,
     URL_Image: req.body.URL_Image,
-    description: req.body.description,
+    Description: req.body.Description,
   });
   try {
     const saveplace = await place.save();
@@ -55,7 +55,8 @@ router.patch("/:placeId", async (req, res) => {
         $set: {
           Name: req.body.Name,
           Country: req.body.Country,
-          URL_Image: req.body.URL_Image
+          URL_Image: req.body.URL_Image,
+          Description: req.body.Description
         },
       }
     );
