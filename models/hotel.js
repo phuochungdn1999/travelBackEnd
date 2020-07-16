@@ -6,7 +6,7 @@ const HotelSchema = mongoose.Schema({
     require: true,
   },
   PlaceID: {
-    type: String,
+    type: Object,
     require: true,
   },
   Star:{

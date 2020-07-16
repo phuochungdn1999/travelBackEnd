@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 //get by id
 router.get("/:placeId", async (req, res) => {
   try {
-    const place = await Place.findOne(req.params.PlaceID);
+    const place = await Place.findOne(req.params._id);
     res.json(place);
   } catch (err) {
     res.json({ message: err });
@@ -47,10 +47,10 @@ router.delete("/:placeId", async (req, res) => {
   }
 });
 //update by id
-router.patch("/:placeId", async (req, res) => {
+router.patch("/:_id", async (req, res) => {
   try {
     const updatedPlace = await Place.updateOne(
-      { PlaceID: req.params.placeId },
+      { _id: req.params._id },
       {
         $set: {
           Name: req.body.Name,
