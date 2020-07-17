@@ -1,0 +1,27 @@
+{
+    "Name":"Muong Thanh",
+    "PlaceID": "DN43",
+    "Star": 5,
+    "Price": 1000000,
+    "Star_Rating": 5,
+    "Description": "Great",
+    "URL_Image":"https://du-lich.chudu24.com/f/m/1712/01/1-building-2-1640307.jpg?w=800&h=500"
+}
+{
+    "Name":"Muong Thanh",
+    "PlaceID": "QN92",
+    "Star": 5,
+    "Price": 1000000,
+    "Star_Rating": 5,
+    "Description": "Great",
+    "URL_Image":"https://pix6.agoda.net/hotelImages/103/1030347/1030347_16030309140040415245.jpg?s=1024x768"
+}
+{
+    "Name":"Muong Thanh",
+    "PlaceID": "TH36",
+    "Star"; 5,
+    "Price": 1000000,
+    "Star_Rating": 5,
+    "Description": "Great",
+    "URL_Image":"https://pix6.agoda.net/hotelImages/745965/-1/3c748fa5e7feede4aea8105dab5c90a5.jpg?s=1024x768"
+}

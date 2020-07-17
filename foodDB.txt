@@ -1,0 +1,24 @@
+{
+    "Name":"Mi Quang",
+    "PlaceID": "DN43",
+    "Description":"A traditional food of Danang",
+    "Price":25000,
+    "Star_Rating": 5,
+    "URL_Image":"https://toplist.vn/images/800px/mi-quang-ba-mua-21796.jpg"
+}
+{
+    "Name":"Banh Cha Tom",
+    "PlaceID": "TH36",
+    "Description":"A traditional food of Thanhhoa",
+    "Price":50000,
+    "Star_Rating": 2,
+    "URL_Image":"https://innotour.vn/wp-content/uploads/2018/12/dac-san-thanh-hoa-.jpeg"
+}
+{
+    "Name":"Cao Lau",
+    "PlaceID": "QN92",
+    "Description":"A traditional food of Quangnam",
+    "Price":30000,
+    "Star_Rating": 3,
+    "URL_Image":"https://vtv1.mediacdn.vn/thumb_w/650/Uploaded/nguyetmai/2013_12_21/cao_lau_211213.jpg"
+}
