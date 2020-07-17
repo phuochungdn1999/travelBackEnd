@@ -1,8 +1,46 @@
 const express = require('express');
 const User = require('../models/User');
 const auth = require('../middleware/auth');
+const paginate = require('express-paginate');
 
 const router = express.Router()
+//truyen page so 1 vao
+//chi dung cho admin
+router.get('/users/getall/:page',auth ,function(req, res, next) {
+    var perPage = 9;
+    var page = req.params.page || 1;
+    console.log("admin",req.user.isAdmin);
+    const admin = req.user.isAdmin;
+    if(admin === true){
+        try {
+            User
+        .find({})
+        .skip((perPage * page) - perPage)
+        .limit(perPage)
+        .exec(function(err, user) {
+            User.count().exec(function(err, count) {
+                if (err) return next(err);
+                res.status = 200;
+                res.send({
+                    user: user,
+                    current: page,
+                    pages: Math.ceil(count / perPage)
+                })
+            })
+        })
+        } catch (error) {
+            res.status(400).send({
+                error:"Paging error"
+            });
+        }
+        
+    }else{
+        res.status(405).send({
+                error:"Only admin is permitted to access"
+        });
+    }
+    
+})
 
 router.post('/users', async (req, res,next) => {
     // Create a new user
