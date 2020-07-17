@@ -1,27 +1,87 @@
-const mongoose = require("mongoose");
-
-const UserSchema = mongoose.Schema({
-  Name: {
-    type: String,
-    require: true,
-  },
-  Username: {
-    type: String,
-    require: true,
-  },
-  Password: {
-    type: String,
-    require: true,
-  },
-  Created_Date: Date,
-  Type_User: {
-    type: String,
-    require: false,
-  },
-  Status_User: {
-    type: Boolean,
-    require: false,
-  },
+const mongoose = require('mongoose');
+const validator = require('validator');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+//username, pass, name,status,type
+const userSchema = mongoose.Schema({
+    firstname: {
+        type: String,
+        //required: true,
+       
+    }
+    ,lastname:{
+        type:String,
+        
+    },
+    username: {
+        type: String,
+        //required: true,
+        unique: true,
+        lowercase: true,     
+    },
+    password: {
+        type: String,
+        //required: true,
+        minLength: 7
+    },
+    isMod: {
+        type: Boolean,
+        //required: true,
+        default:false
+    },
+    isAdmin: {
+        type: Boolean,
+        //required: true,
+        default:false
+    },
+    
+    tokens: [
+        {
+            token: {
+                type: String,
+                required: true
+            }
+        }
+    ]
+},{
+    timestamps: true
 });
 
-module.exports = mongoose.model("Users", UserSchema);
+userSchema.pre('save', async function (next) {
+    // Hash the password before saving the user model
+    const user = this
+    if (user.isModified('password')) {
+        user.password = await bcrypt.hash(user.password, 8)
+    }
+    next()
+})
+
+userSchema.methods.generateAuthToken = async function () {
+    // Generate an auth token for the user
+    const user = this
+    const token = jwt.sign({
+        _id: user._id
+    }, process.env.JWT_KEY)
+    user.tokens = user
+        .tokens
+        .concat({token})
+    await user.save()
+    return token
+}
+
+userSchema.statics.findByCredentials = async (username, password) => {
+    // Search for a user by username and password.
+    const user = await User.findOne({username})
+    if (!user) {
+        throw new Error('Invalid login credentials')
+    }
+    const isPasswordMatch = await bcrypt.compare(password, user.password)
+    if (!isPasswordMatch) {
+        throw new Error('Invalid login credentials')
+    }
+    return user
+}
+
+const User = mongoose.model('User', userSchema)
+
+module.exports = User
