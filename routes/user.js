@@ -45,8 +45,6 @@ router.get('/users/getall',auth ,function(req, res, next) {
 
 router.post('/users', async (req, res,next) => {
     // Create a new user
-    try {
-        console.log('TEst111');
         User.findOne({username:req.body.username},(err,userCheck)=>{
             console.log('Okee');
             console.log(userCheck);
@@ -64,9 +62,7 @@ router.post('/users', async (req, res,next) => {
         const token = await user.generateAuthToken();
         res.status(201).send({ user, token });
         
-    } catch (error) {
-        res.status(400).send(error);
-    }
+    
 })
 
 router.post('/users/login', async(req, res) => {
