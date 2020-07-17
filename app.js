@@ -34,6 +34,6 @@ mongoose.connect(
 //   console.log(`App listening at http://localhost:${port}`)
   
 // );
-app.listen(process.env.PORT || 3500, ()=>
-  console.log(`App listening`)
-); //deploy
+app.listen(process.env.PORT || 3500, function(){
+  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+}); //deploy
