@@ -13,7 +13,7 @@ const hotelRoute = require("./routes/hotels");
 const foodRoute= require("./routes/foods");
 const searchplace= require("./routes/searchplace");
 //use route
-app.use("/users", userRoute);
+app.use(userRoute);
 app.use("/places", placeRoute);
 app.use("/hotels", hotelRoute);
 app.use("/foods",foodRoute);
