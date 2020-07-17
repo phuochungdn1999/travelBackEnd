@@ -5,8 +5,22 @@ const Hotel = require("../models/hotel");
 //get all
 router.get("/", async (req, res) => {
   try {
-    const hotels = await Hotel.find();
-    res.json(hotels);
+    const perPage = parseInt(req.query.limit || 10)
+    const page = parseInt(req.query.page || 1)
+    Hotel.find({})
+    .skip((perPage * page) - perPage)
+    .limit(perPage)
+    .exec(function(err, hotel) {
+        Hotel.count().exec(function(err, hotel) {
+            if (err) return next(err);
+            res.status = 200;
+            res.send({
+                hotels: hotel,
+                current: page,
+                pages: Math.ceil(count / perPage)
+            })
+        })
+    })
   } catch (err) {
     res.json({ message: err });
   }

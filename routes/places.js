@@ -5,8 +5,22 @@ const Place = require("../models/place");
 //get all
 router.get("/", async (req, res) => {
   try {
-    const places = await Place.find();
-    res.json(places);
+    const perPage = parseInt(req.query.limit || 10)
+    const page = parseInt(req.query.page || 1)
+    Place.find({})
+    .skip((perPage * page) - perPage)
+    .limit(perPage)
+    .exec(function(err, place) {
+        place.count().exec(function(err, count) {
+            if (err) return next(err);
+            res.status = 200;
+            res.send({
+                places: place,
+                current: page,
+                pages: Math.ceil(count / perPage)
+            })
+        })
+    })
   } catch (err) {
     res.json({ message: err });
   }

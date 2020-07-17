@@ -2,11 +2,26 @@ const express = require("express");
 const router = express.Router();
 const Food = require("../models/food");
 
-//get all
-router.get("/", async (req, res) => {
+//get all by page
+router.get("/", async (req, res,next) => {
   try {
-    const foods = await Food.find();
-    res.json(foods);
+    const perPage = parseInt(req.query.limit || 10)
+    const page = parseInt(req.query.page || 1)
+    Food.find({})
+    .skip((perPage * page) - perPage)
+    .limit(perPage)
+    .exec(function(err, food) {
+        Food.count().exec(function(err, count) {
+            if (err) return next(err);
+            res.status = 200;
+            res.send({
+                food: food,
+                current: page,
+                pages: Math.ceil(count / perPage)
+            })
+        })
+    })
+   
   } catch (err) {
     res.json({ message: err });
   }
