@@ -11,11 +11,12 @@ router.get("/", async (req, res) => {
     res.json({ message: err });
   }
 });
+
 //get by id
 router.get("/:_id", async (req, res) => {
   try {
     console.log(req.params._id)
-    const place = await Place.findOne(req.params._id);
+    const place = await Place.findById(req.params._id)
     res.json(place);
   } catch (err) {
     res.json({ message: err });
@@ -44,7 +45,7 @@ router.delete("/:placeId", async (req, res) => {
     const removedplace = await Place.remove({ PlaceID: req.params.placeId });
     res.json(removedplace);
   } catch (err) {
-    res.json({ messgae: err });
+    res.json({ message: err });
   }
 });
 //update by id
