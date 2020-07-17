@@ -12,8 +12,9 @@ router.get("/", async (req, res) => {
   }
 });
 //get by id
-router.get("/:placeId", async (req, res) => {
+router.get("/:_id", async (req, res) => {
   try {
+    console.log(req.params._id)
     const place = await Place.findOne(req.params._id);
     res.json(place);
   } catch (err) {
