@@ -34,4 +34,6 @@ mongoose.connect(
 //   console.log(`App listening at http://localhost:${port}`)
   
 // );
-app.listen(process.env.PORT || 3500) //deploy
+app.listen(process.env.PORT || 3500, ()=>
+  console.log(`App listening`)
+); //deploy
