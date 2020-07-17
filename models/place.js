@@ -21,5 +21,7 @@ const PlaceSchema = mongoose.Schema({
     type: String,
     require: false,
   }
+},{
+  timestamps:true
 });
 module.exports = mongoose.model("Places", PlaceSchema);

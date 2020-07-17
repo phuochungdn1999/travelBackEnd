@@ -7,7 +7,7 @@ app.use(bodyParser.json());
 const port = 3500;
 
 //import routes
-const userRoute = require("./routes/users");
+const userRoute = require("./routes/user");
 const placeRoute = require("./routes/places");
 const hotelRoute = require("./routes/hotels");
 const foodRoute= require("./routes/foods");
