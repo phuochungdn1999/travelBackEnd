@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
     .skip((perPage * page) - perPage)
     .limit(perPage)
     .exec(function(err, place) {
-        place.count().exec(function(err, count) {
+        Place.count().exec(function(err, count) {
             if (err) return next(err);
             res.status = 200;
             res.send({
