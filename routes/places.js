@@ -54,9 +54,9 @@ router.post("/", async (req, res) => {
   }
 });
 //delete
-router.delete("/:placeId", async (req, res) => {
+router.delete("/:_id", async (req, res) => {
   try {
-    const removedplace = await Place.remove({ PlaceID: req.params.placeId });
+    const removedplace = await Place.findByIdAndRemove(req.params._id)
     res.json(removedplace);
   } catch (err) {
     res.json({ message: err });
