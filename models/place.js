@@ -1,10 +1,6 @@
 const mongoose = require("mongoose");
 
 const PlaceSchema = mongoose.Schema({
-  PlaceID: {
-    type: String,
-    require: true,
-  },
   Name: {
     type: String,
     require: true,

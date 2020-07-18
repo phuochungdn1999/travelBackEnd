@@ -40,7 +40,6 @@ router.get("/:_id", async (req, res) => {
 router.post("/", async (req, res) => {
   console.log(req.body);
   const place = new Place({
-    PlaceID: req.body.PlaceID,
     Name: req.body.Name,
     Country: req.body.Country,
     URL_Image: req.body.URL_Image,

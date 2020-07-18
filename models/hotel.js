@@ -6,6 +6,10 @@ const HotelSchema = mongoose.Schema({
     require: true,
   },
   PlaceID: {
+    type: String,
+    require: true
+  },
+  Place: {
     type: Object,
     require: true,
   },
