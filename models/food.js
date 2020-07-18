@@ -9,6 +9,10 @@ const FoodSchema = mongoose.Schema({
     type: String,
     require: true,
   },
+  Place: {
+    type: Object,
+    require: true,
+  },
   Description:{
       type: String,
       require: false

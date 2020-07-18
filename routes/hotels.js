@@ -40,6 +40,7 @@ router.post("/", async (req, res) => {
   const hotel = new Hotel({
     Name: req.body.Name,
     PlaceID: req.body.PlaceID,
+    Place: req.body.Place,
     Star: req.body.Star,
     Price: req.body.Price,
     Star_Rating: req.body.Star_Rating,
@@ -71,6 +72,7 @@ router.patch("/:hotelId", async (req, res) => {
         $set: {
           Name: req.body.Name,
           PlaceID: req.body.PlaceID,
+          PlaceID: req.body.Place,
           Star: req.body.Star,
           Price: req.body.Price,
           Star_Rating: req.body.Star_Rating,
