@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Hotel = require("../models/hotel");
+const auth = require("../middleware/auth");
 
 //get all
 router.get("/", async (req, res) => {
@@ -44,56 +45,74 @@ router.get("/id/:hotelId", async (req, res) => {
   }
 });
 // create
-router.post("/", async (req, res) => {
-  console.log(req.body);
-  const hotel = new Hotel({
-    Name: req.body.Name,
-    PlaceID: req.body.PlaceID,
-    Place: req.body.Place,
-    Star: req.body.Star,
-    Price: req.body.Price,
-    Star_Rating: req.body.Star_Rating,
-    Description: req.body.Description,
-    URL_Image: req.body.URL_Image
-  });
-  try {
-    const savehotel = await hotel.save();
-    res.json(savehotel);
-  } catch (err) {
-    res.json({ message: err });
+//only created by admin or mod
+router.post("/", auth,async (req, res) => {
+  console.log(req.user);
+  console.log("admin",req.user.isAdmin);
+  if(req.user.isAdmin === true||req.user.isMod === true){
+    //console.log(req.body);
+    const hotel = new Hotel({
+      Name: req.body.Name,
+      PlaceID: req.body.PlaceID,
+      Place: req.body.Place,
+      Star: req.body.Star,
+      Price: req.body.Price,
+      Star_Rating: req.body.Star_Rating,
+      Description: req.body.Description,
+      URL_Image: req.body.URL_Image
+    });
+    try {
+      const savehotel = await hotel.save();
+      res.json(savehotel);
+    } catch (err) {
+      res.json({ message: err });
+    }
+  }else{
+    res.status(400).send({message:"Only admin and mod is permitted"});
   }
+  
 });
-//delete
-router.delete("/:hotelId", async (req, res) => {
-  try {
-    const removedhotel = await Hotel.remove({ _id: req.params.hotelId });
-    res.json(removedhotel);
-  } catch (err) {
-    res.json({ messgae: err });
+//delete only admin and mod
+router.delete("/:hotelId", auth, async (req, res) => {
+  if(req.user.isAdmin === true||req.user.isMod === true){
+    try {
+      const removedhotel = await Hotel.remove({ _id: req.params.hotelId });
+      res.json(removedhotel);
+    } catch (err) {
+      res.json({ messgae: err });
+    }
+  }else{
+    res.status(400).send({message:"Only admin and mod is permitted"});
   }
+  
 });
-//update by id
-router.patch("/:hotelId", async (req, res) => {
-  try {
-    const updatedHotel = await Hotel.updateOne(
-      { _id: req.params.hotelId },
-      {
-        $set: {
-          Name: req.body.Name,
-          PlaceID: req.body.PlaceID,
-          Place: req.body.Place,
-          Star: req.body.Star,
-          Price: req.body.Price,
-          Star_Rating: req.body.Star_Rating,
-          Description: req.body.Description,
-          URL_Image: req.body.URL_Image
-        },
-      }
-    );
-    res.json(updatedHotel);
-  } catch (err) {
-    res.json({ messgae: err });
+//update by id only admin and mod
+router.patch("/:hotelId", auth, async (req, res) => {
+  if(req.user.isAdmin === true||req.user.isMod === true){
+    try {
+      const updatedHotel = await Hotel.updateOne(
+        { _id: req.params.hotelId },
+        {
+          $set: {
+            Name: req.body.Name,
+            PlaceID: req.body.PlaceID,
+            Place: req.body.Place,
+            Star: req.body.Star,
+            Price: req.body.Price,
+            Star_Rating: req.body.Star_Rating,
+            Description: req.body.Description,
+            URL_Image: req.body.URL_Image
+          },
+        }
+      );
+      res.json(updatedHotel);
+    } catch (err) {
+      res.json({ messgae: err });
+    }
+  }else{
+    res.status(400).send({message:"Only admin and mod is permitted"});
   }
+  
 });
 
 module.exports = router;
