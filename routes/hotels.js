@@ -72,7 +72,7 @@ router.post("/", auth,async (req, res) => {
   }
   
 });
-//delete
+//delete only admin and mod
 router.delete("/:hotelId", auth, async (req, res) => {
   if(req.user.isAdmin === true||req.user.isMod === true){
     try {
@@ -86,7 +86,7 @@ router.delete("/:hotelId", auth, async (req, res) => {
   }
   
 });
-//update by id
+//update by id only admin and mod
 router.patch("/:hotelId", auth, async (req, res) => {
   if(req.user.isAdmin === true||req.user.isMod === true){
     try {
