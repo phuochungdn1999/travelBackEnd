@@ -38,7 +38,7 @@ router.get("/:placeId", async (req, res) => {
 // get by id hotel
 router.get("/id/:hotelId", async (req, res) => {
   try {
-    const hotel = await Hotel.find({_id: req.params.hotelId});
+    const hotel = await Hotel.findById(req.params.hotelId);
     res.json(hotel);
   } catch (err) {
     res.json({ message: err });
