@@ -25,10 +25,19 @@ router.get("/", async (req, res) => {
     res.json({ message: err });
   }
 });
-//get by id
+//get by id place
 router.get("/:placeId", async (req, res) => {
   try {
     const hotel = await Hotel.find({PlaceID : req.params.placeId});
+    res.json(hotel);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+// get by id hotel
+router.get("/:_id", async (req, res) => {
+  try {
+    const hotel = await Hotel.findById(req.params._id);
     res.json(hotel);
   } catch (err) {
     res.json({ message: err });
@@ -72,7 +81,7 @@ router.patch("/:hotelId", async (req, res) => {
         $set: {
           Name: req.body.Name,
           PlaceID: req.body.PlaceID,
-          PlaceID: req.body.Place,
+          Place: req.body.Place,
           Star: req.body.Star,
           Price: req.body.Price,
           Star_Rating: req.body.Star_Rating,
