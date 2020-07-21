@@ -49,7 +49,7 @@ router.get("/id/:hotelId", async (req, res) => {
 router.post("/", auth,async (req, res) => {
   console.log(req.user);
   console.log("admin",req.user.isAdmin);
-  if(req.user.isAdmin === true||req.user.isMod === true){
+  // if(req.user.isAdmin === true||req.user.isMod === true){
     //console.log(req.body);
     const hotel = new Hotel({
       Name: req.body.Name,
@@ -67,23 +67,23 @@ router.post("/", auth,async (req, res) => {
     } catch (err) {
       res.json({ message: err });
     }
-  }else{
-    res.status(400).send({message:"Only admin and mod is permitted"});
-  }
+  // }else{
+  //   res.status(400).send({message:"Only admin and mod is permitted"});
+  // }
   
 });
 //delete only admin and mod
 router.delete("/:hotelId", auth, async (req, res) => {
-  if(req.user.isAdmin === true||req.user.isMod === true){
+  // if(req.user.isAdmin === true||req.user.isMod === true){
     try {
       const removedhotel = await Hotel.remove({ _id: req.params.hotelId });
       res.json({message:"Delete hotel success", removedhotel});
     } catch (err) {
       res.json({ messgae: err });
     }
-  }else{
-    res.status(400).send({message:"Only admin and mod is permitted"});
-  }
+  // }else{
+  //   res.status(400).send({message:"Only admin and mod is permitted"});
+  // }
   
 });
 //update by id only admin and mod
