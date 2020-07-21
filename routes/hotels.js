@@ -46,7 +46,7 @@ router.get("/id/:hotelId", async (req, res) => {
 });
 // create
 //only created by admin or mod
-router.post("/"/*, auth*/,async (req, res) => {
+router.post("/",async (req, res) => {
   console.log(req.user);
   console.log("admin",req.user.isAdmin);
   // if(req.user.isAdmin === true||req.user.isMod === true){
@@ -73,7 +73,7 @@ router.post("/"/*, auth*/,async (req, res) => {
   
 });
 //delete only admin and mod
-router.delete("/:hotelId"/*, auth*/, async (req, res) => {
+router.delete("/:hotelId", async (req, res) => {
   // if(req.user.isAdmin === true||req.user.isMod === true){
     try {
       const removedhotel = await Hotel.remove({ _id: req.params.hotelId });
