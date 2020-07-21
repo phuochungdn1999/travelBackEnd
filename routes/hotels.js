@@ -73,7 +73,7 @@ router.post("/", /*auth,*/async (req, res) => {
   
 });
 //delete only admin and mod
-router.delete("/:hotelId", auth, async (req, res) => {
+router.delete("/:hotelId"/*, auth*/, async (req, res) => {
   // if(req.user.isAdmin === true||req.user.isMod === true){
     try {
       const removedhotel = await Hotel.remove({ _id: req.params.hotelId });

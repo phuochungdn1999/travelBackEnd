@@ -4,9 +4,9 @@ const auth = require('../middleware/auth');
 
 
 const router = express.Router()
-//truyen page so 1 vao
+//get all users
 //chi dung cho admin
-router.get('/users/getall',auth ,function(req, res, next) {
+router.get('/admins/getall',auth ,function(req, res, next) {
     
     console.log("admin",req.user.isAdmin);
     const admin = req.user.isAdmin;
