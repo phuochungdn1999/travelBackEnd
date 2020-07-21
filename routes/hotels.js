@@ -87,8 +87,8 @@ router.delete("/:hotelId", auth, async (req, res) => {
   
 });
 //update by id only admin and mod
-router.patch("/:hotelId", auth, async (req, res) => {
-  if(req.user.isAdmin === true||req.user.isMod === true){
+router.patch("/:hotelId", async (req, res) => {  // them auth sau "/:hotelId", auth, async nhá
+  // if(req.user.isAdmin === true||req.user.isMod === true){
     try {
       const updatedHotel = await Hotel.updateOne(
         { _id: req.params.hotelId },
@@ -109,9 +109,9 @@ router.patch("/:hotelId", auth, async (req, res) => {
     } catch (err) {
       res.json({ messgae: err });
     }
-  }else{
-    res.status(400).send({message:"Only admin and mod is permitted"});
-  }
+  // }else{
+  //   res.status(400).send({message:"Only admin and mod is permitted"});
+  // }
   
 });
 
