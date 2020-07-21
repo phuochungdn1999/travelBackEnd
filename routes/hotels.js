@@ -46,9 +46,9 @@ router.get("/id/:hotelId", async (req, res) => {
 });
 // create
 //only created by admin or mod
-router.post("/", auth,async (req, res) => {
-  console.log(req.user);
-  console.log("admin",req.user.isAdmin);
+router.post("/", /*auth,*/async (req, res) => {
+  // console.log(req.user);
+  // console.log("admin",req.user.isAdmin);
   // if(req.user.isAdmin === true||req.user.isMod === true){
     //console.log(req.body);
     const hotel = new Hotel({
