@@ -63,7 +63,7 @@ router.post("/", auth,async (req, res) => {
     });
     try {
       const savehotel = await hotel.save();
-      res.json(savehotel);
+      res.json({message:"Create hotel success",savehotel});
     } catch (err) {
       res.json({ message: err });
     }
@@ -77,7 +77,7 @@ router.delete("/:hotelId", auth, async (req, res) => {
   // if(req.user.isAdmin === true||req.user.isMod === true){
     try {
       const removedhotel = await Hotel.remove({ _id: req.params.hotelId });
-      res.json(removedhotel);
+      res.json({message:"Delete hotel success", removedhotel});
     } catch (err) {
       res.json({ messgae: err });
     }
@@ -105,7 +105,7 @@ router.patch("/:hotelId", async (req, res) => {  // them auth sau "/:hotelId", a
           },
         }
       );
-      res.json(updatedHotel);
+      res.json({message:"Update hotel success", updatedHotel});
     } catch (err) {
       res.json({ messgae: err });
     }

@@ -60,11 +60,61 @@ router.post('/users', async (req, res,next) => {
         const user = new User(req.body);
         await user.save();
         const token = await user.generateAuthToken();
-        res.status(201).send({ user, token });
+        res.status(201).send({ message:"Signup successful",user:{
+            username:user.username,             
+        }, token 
+        });
         
     
 })
-
+router.post('/mods', async (req, res,next) => {
+    // Create a new mod
+        User.findOne({username:req.body.username},(err,userCheck)=>{
+            console.log('Okee');
+            console.log(userCheck);
+            if(userCheck){
+                res.statusCode = 400;
+                res.setHeader('Content-Type', 'application/json');
+                err = 'User already exists';
+                res.json({err});
+                return;
+            }
+        })
+        
+        const user = new User(req.body);
+        await user.save();
+        const token = await user.generateAuthToken();
+        res.status(201).send({ message:"Mod signup successful",user:{
+            username:user.username,             
+        }, token 
+        });
+        
+    
+})
+router.post('/admins', async (req, res,next) => {
+    // Create a new admin
+        User.findOne({username:req.body.username},(err,userCheck)=>{
+            console.log('Okee');
+            console.log(userCheck);
+            if(userCheck){
+                res.statusCode = 400;
+                res.setHeader('Content-Type', 'application/json');
+                err = 'Admin already exists';
+                res.json({err});
+                return;
+            }
+        })
+        
+        const user = new User(req.body);
+        await user.save();
+        const token = await user.generateAuthToken();
+        res.status(201).send({ message:"Admin signup successful",user:{
+            username:user.username,             
+        }, token 
+        });
+        
+    
+})
 router.post('/users/login', async(req, res) => {
     //Login a registered user
     try {
@@ -77,13 +127,54 @@ router.post('/users/login', async(req, res) => {
         }
         const token = await user.generateAuthToken();
         res.send({message:"Login success",
-             user, token });
+        user:{
+            username:user.username,             
+        }, token });
     } catch (error) {
         res.status(400).send({ error: error.message });
     }
 
 })
+router.post('/mods/login', async(req, res) => {
+    //Login a registered user
+    try {
+        console.log(req.body);
+        const { username, password } = req.body;
+        const user = await User.findByCredentials(username, password);
+        console.log("user",user);
+        if (!user) {
+            return res.status(401).send({error: 'Login failed! Check authentication credentials'})
+        }
+        const token = await user.generateAuthToken();
+        res.send({message:" Mod Login success",
+        user:{
+            username:user.username,             
+        }, token });
+    } catch (error) {
+        res.status(400).send({ error: error.message });
+    }
 
+})
+router.post('/admins/login', async(req, res) => {
+    //Login a registered user
+    try {
+        console.log(req.body);
+        const { username, password } = req.body;
+        const user = await User.findByCredentials(username, password);
+        console.log("user",user);
+        if (!user) {
+            return res.status(401).send({error: 'Login failed! Check authentication credentials'})
+        }
+        const token = await user.generateAuthToken();
+        res.send({message:"Amin Login success",
+        user:{
+            username:user.username,             
+        }, token });
+    } catch (error) {
+        res.status(400).send({ error: error.message });
+    }
+
+})
 router.get('/users/me', auth, async(req, res) => {
     // View logged in user profile
     console.log(req.user.password);
@@ -152,5 +243,6 @@ router.post('/users/me/logoutall', auth, async(req, res) => {
         res.status(500).send(error);
     }
 });
+
 
 module.exports = router;
