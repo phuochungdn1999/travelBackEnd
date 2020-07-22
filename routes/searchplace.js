@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Place = require("../models/place");
-
+//token gồm Bearer + token (sau Bearer có dấu cách)
 router.get("/:nameplace", function (req, res, next) {
   var q = req.params.nameplace;
 // search full

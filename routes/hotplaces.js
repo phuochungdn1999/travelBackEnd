@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Hotel = require("../models/hotel");
+const Hotplace = require("../models/hotplace");
 const auth = require("../middleware/auth");
 //token gồm Bearer + token (sau Bearer có dấu cách)
 //get all
@@ -8,15 +8,15 @@ router.get("/", async (req, res) => {
   try {
     const perPage = parseInt(req.query.limit || 10)
     const page = parseInt(req.query.page || 1)
-    Hotel.find({})
+    Hotplace.find({})
     .skip((perPage * page) - perPage)
     .limit(perPage)
-    .exec(function(err, hotel) {
-        Hotel.count().exec(function(err, count) {
+    .exec(function(err, hotplace) {
+        Hotplace.count().exec(function(err, count) {
             if (err) return next(err);
             res.status = 200;
             res.send({
-                hotels: hotel,
+                hotplaces: hotplace,
                 current: page,
                 pages: Math.ceil(count / perPage)
             })
@@ -29,17 +29,17 @@ router.get("/", async (req, res) => {
 //get by id place
 router.get("/:placeId", async (req, res) => {
   try {
-    const hotel = await Hotel.find({PlaceID : req.params.placeId});
-    res.json(hotel);
+    const hotplace = await Hotplace.find({PlaceID : req.params.placeId});
+    res.json(hotplace);
   } catch (err) {
     res.json({ message: err });
   }
 });
-// get by id hotel
-router.get("/id/:hotelId", async (req, res) => {
+// get by id hotplace
+router.get("/id/:hotplaceId", async (req, res) => {
   try {
-    const hotel = await Hotel.findById(req.params.hotelId);
-    res.json(hotel);
+    const hotplace = await Hotplace.findById(req.params.hotplaceId);
+    res.json(hotplace);
   } catch (err) {
     res.json({ message: err });
   }
@@ -51,19 +51,17 @@ router.post("/", auth,async (req, res) => {
   console.log("admin",req.user.isAdmin);
   if(req.user.isAdmin === true||req.user.isMod === true){
     console.log(req.body);
-    const hotel = new Hotel({
+    const hotplace = new Hotplace({
       Name: req.body.Name,
       PlaceID: req.body.PlaceID,
       Place: req.body.Place,
-      Star: req.body.Star,
-      Price: req.body.Price,
       Star_Rating: req.body.Star_Rating,
       Description: req.body.Description,
       URL_Image: req.body.URL_Image
     });
     try {
-      const savehotel = await hotel.save();
-      res.json({message:"Create hotel success",savehotel});
+      const savehotplace = await hotplace.save();
+      res.json({message:"Create hotplace success",savehotplace});
     } catch (err) {
       res.json({ message: err });
     }
@@ -73,11 +71,11 @@ router.post("/", auth,async (req, res) => {
   
 });
 //delete only admin and mod
-router.delete("/:hotelId", auth, async (req, res) => {
+router.delete("/:hotplaceId", auth, async (req, res) => {
   if(req.user.isAdmin === true||req.user.isMod === true){
     try {
-      const removedhotel = await Hotel.remove({ _id: req.params.hotelId });
-      res.json({message:"Delete hotel success", removedhotel});
+      const removedhotplace = await Hotplace.remove({ _id: req.params.hotplaceId });
+      res.json({message:"Delete hotplace success", removedhotplace});
     } catch (err) {
       res.json({ messgae: err });
     }
@@ -87,25 +85,23 @@ router.delete("/:hotelId", auth, async (req, res) => {
   
 });
 //update by id only admin and mod
-router.patch("/:hotelId",auth, async (req, res) => {  // them auth sau "/:hotelId", auth, async nhá
+router.patch("/:hotplaceId",auth, async (req, res) => {  // them auth sau "/:hotplaceId", auth, async nhá
   if(req.user.isAdmin === true||req.user.isMod === true){
     try {
-      const updatedHotel = await Hotel.updateOne(
-        { _id: req.params.hotelId },
+      const updatedHotplace = await Hotplace.updateOne(
+        { _id: req.params.hotplaceId },
         {
           $set: {
             Name: req.body.Name,
             PlaceID: req.body.PlaceID,
             Place: req.body.Place,
-            Star: req.body.Star,
-            Price: req.body.Price,
             Star_Rating: req.body.Star_Rating,
             Description: req.body.Description,
             URL_Image: req.body.URL_Image
           },
         }
       );
-      res.json({message:"Update hotel success", updatedHotel});
+      res.json({message:"Update hotplace success", updatedHotplace});
     } catch (err) {
       res.json({ messgae: err });
     }

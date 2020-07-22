@@ -126,10 +126,11 @@ router.post('/users/login', async(req, res) => {
             return res.status(401).send({error: 'Login failed! Check authentication credentials'})
         }
         const token = await user.generateAuthToken();
-        res.send({message:"Login success",
-        user:{
-            username:user.username,             
-        }, token });
+        if(user.isAdmin) role = "Admin";
+        else if(user.isMod) role = "Mod";
+        else role = "User";
+        res.send({message:"Login success",role:role,
+        user:user , token });
     } catch (error) {
         res.status(400).send({ error: error.message });
     }

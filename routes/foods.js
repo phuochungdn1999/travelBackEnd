@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Food = require("../models/food");
-
+//token gồm Bearer + token (sau Bearer có dấu cách)
 //get all by page
 router.get("/", async (req, res,next) => {
   try {

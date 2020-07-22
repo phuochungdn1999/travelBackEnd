@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Place = require("../models/place");
-
+//token gồm Bearer + token (sau Bearer có dấu cách)
 //get all
 router.get("/", async (req, res) => {
   try {
