@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Hotel = require("../models/hotel");
 const auth = require("../middleware/auth");
-
+//token gồm Bearer + token (sau Bearer có dấu cách)
 //get all
 router.get("/", async (req, res) => {
   try {
@@ -46,11 +46,11 @@ router.get("/id/:hotelId", async (req, res) => {
 });
 // create
 //only created by admin or mod
-router.post("/", /*auth,*/async (req, res) => {
-  // console.log(req.user);
-  // console.log("admin",req.user.isAdmin);
-  // if(req.user.isAdmin === true||req.user.isMod === true){
-    //console.log(req.body);
+router.post("/", auth,async (req, res) => {
+  console.log(req.user);
+  console.log("admin",req.user.isAdmin);
+  if(req.user.isAdmin === true||req.user.isMod === true){
+    console.log(req.body);
     const hotel = new Hotel({
       Name: req.body.Name,
       PlaceID: req.body.PlaceID,
@@ -67,28 +67,28 @@ router.post("/", /*auth,*/async (req, res) => {
     } catch (err) {
       res.json({ message: err });
     }
-  // }else{
-  //   res.status(400).send({message:"Only admin and mod is permitted"});
-  // }
+  }else{
+    res.status(400).send({message:"Only admin and mod is permitted"});
+  }
   
 });
 //delete only admin and mod
-router.delete("/:hotelId"/*, auth*/, async (req, res) => {
-  // if(req.user.isAdmin === true||req.user.isMod === true){
+router.delete("/:hotelId", auth, async (req, res) => {
+  if(req.user.isAdmin === true||req.user.isMod === true){
     try {
       const removedhotel = await Hotel.remove({ _id: req.params.hotelId });
       res.json({message:"Delete hotel success", removedhotel});
     } catch (err) {
       res.json({ messgae: err });
     }
-  // }else{
-  //   res.status(400).send({message:"Only admin and mod is permitted"});
-  // }
+  }else{
+    res.status(400).send({message:"Only admin and mod is permitted"});
+  }
   
 });
 //update by id only admin and mod
-router.patch("/:hotelId", async (req, res) => {  // them auth sau "/:hotelId", auth, async nhá
-  // if(req.user.isAdmin === true||req.user.isMod === true){
+router.patch("/:hotelId",auth, async (req, res) => {  // them auth sau "/:hotelId", auth, async nhá
+  if(req.user.isAdmin === true||req.user.isMod === true){
     try {
       const updatedHotel = await Hotel.updateOne(
         { _id: req.params.hotelId },
@@ -109,9 +109,9 @@ router.patch("/:hotelId", async (req, res) => {  // them auth sau "/:hotelId", a
     } catch (err) {
       res.json({ messgae: err });
     }
-  // }else{
-  //   res.status(400).send({message:"Only admin and mod is permitted"});
-  // }
+  }else{
+    res.status(400).send({message:"Only admin and mod is permitted"});
+  }
   
 });
 
