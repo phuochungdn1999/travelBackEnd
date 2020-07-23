@@ -12,12 +12,14 @@ const placeRoute = require("./routes/places");
 const hotelRoute = require("./routes/hotels");
 const foodRoute= require("./routes/foods");
 const searchplace= require("./routes/searchplace");
+const hotplaceRoute= require("./routes/hotplaces");
 //use route
 app.use(userRoute);
 app.use("/places", placeRoute);
 app.use("/hotels", hotelRoute);
 app.use("/foods",foodRoute);
 app.use("/search",searchplace);
+app.use("/hotplace", hotplaceRoute)
 //connect MongoDB
 mongoose.set("useCreateIndex", true);
 mongoose.connect(
