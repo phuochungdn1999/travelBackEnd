@@ -77,28 +77,8 @@ router.delete("/:_id", auth, async (req, res) => {
             .send({message: "Only admin is permitted"});
     }
 });
-<<<<<<< HEAD
-//update by id
-router.put("/:_id", async (req, res) => {
-  try {
-    const updatedPlace = await Place.updateOne(
-      { _id: req.params._id },
-      {
-        $set: {
-          Name: req.body.Name,
-          Country: req.body.Country,
-          URL_Image: req.body.URL_Image,
-          Description: req.body.Description
-        },
-      }
-    );
-    res.json(updatedPlace);
-  } catch (err) {
-    res.json({ messgae: err });
-  }
-=======
 //update by id by admin and mod
-router.patch("/:_id", auth, async (req, res) => {
+router.put("/:_id", auth, async (req, res) => {
     if (req.user.isAdmin === true || req.user.isMod === true) {
         try {
             const updatedPlace = await Place.updateOne({
@@ -120,7 +100,6 @@ router.patch("/:_id", auth, async (req, res) => {
             .status(400)
             .send({message: "Only admin and mod is permitted"});
     }
->>>>>>> d9e85fd91d7821cb3627d11b00e458dd12679418
 });
 
 module.exports = router;

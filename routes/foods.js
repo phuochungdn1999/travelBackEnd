@@ -84,12 +84,9 @@ router.delete("/:foodId", auth,async (req, res) => {
   }
 });
 //update by id
-<<<<<<< HEAD
 router.put("/:foodId", async (req, res) => {
-=======
-router.patch("/:foodId", async (req, res) => {
   if(req.user.isAdmin === true||req.user.isMod === true){
->>>>>>> d9e85fd91d7821cb3627d11b00e458dd12679418
+
   try {
     const updatedFood = await Food.updateOne(
       { _id: req.params.foodId },
