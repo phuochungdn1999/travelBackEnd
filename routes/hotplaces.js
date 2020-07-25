@@ -85,7 +85,7 @@ router.delete("/:hotplaceId", auth, async (req, res) => {
   
 });
 //update by id only admin and mod
-router.patch("/:hotplaceId",auth, async (req, res) => {  // them auth sau "/:hotplaceId", auth, async nhá
+router.put("/:hotplaceId",auth, async (req, res) => {  // them auth sau "/:hotplaceId", auth, async nhá
   if(req.user.isAdmin === true||req.user.isMod === true){
     try {
       const updatedHotplace = await Hotplace.updateOne(

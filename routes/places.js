@@ -78,7 +78,7 @@ router.delete("/:_id", auth, async (req, res) => {
     }
 });
 //update by id by admin and mod
-router.patch("/:_id", auth, async (req, res) => {
+router.put("/:_id", auth, async (req, res) => {
     if (req.user.isAdmin === true || req.user.isMod === true) {
         try {
             const updatedPlace = await Place.updateOne({
