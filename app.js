@@ -7,12 +7,7 @@ require("dotenv/config");
 app.use(bodyParser.json());
 const port = 3500;
 
-app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', "*");
-  res.header('Access-Control-Allow-Methods','GET,PUT,POST,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  next();
-})
+
 //import routes
 const userRoute = require("./routes/user");
 const placeRoute = require("./routes/places");
@@ -22,7 +17,12 @@ const searchplace= require("./routes/searchplace");
 const hotplaceRoute= require("./routes/hotplaces");
 //use route
 
-
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', "*");
+  res.header('Access-Control-Allow-Methods','GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+})
 app.use(userRoute);
 app.use("/places", placeRoute);
 app.use("/hotels", hotelRoute);
