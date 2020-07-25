@@ -199,7 +199,7 @@ router.put('/users/me/password', auth, async(req, res) => {
         }
     })
 })
-router.post('/users/me/update', auth, async(req, res) => {
+router.put('/users/me/update', auth, async(req, res) => {
     var id = req.user._id;
     console.log('Id',id);
     User.findById({_id:id}).then((user)=>{
