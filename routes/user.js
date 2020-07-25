@@ -183,7 +183,7 @@ router.get('/users/me', auth, async(req, res) => {
     console.log(req.user.password);
     res.send(req.user);
 })
-router.post('/users/me/password', auth, async(req, res) => {
+router.put('/users/me/password', auth, async(req, res) => {
     var id = req.user._id;
     console.log('Id',id);
     User.findById({_id:id}).then((user)=>{
