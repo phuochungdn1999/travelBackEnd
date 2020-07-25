@@ -1,4 +1,5 @@
 const express = require("express");
+var cors = require('cors')
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const app = express();
@@ -7,6 +8,10 @@ app.use(bodyParser.json());
 const port = 3500;
 
 //import routes
+app.use(cors())
+ app.listen(80, function () {
+  console.log('CORS-enabled web server listening on port 80')
+})
 const userRoute = require("./routes/user");
 const placeRoute = require("./routes/places");
 const hotelRoute = require("./routes/hotels");
@@ -14,6 +19,7 @@ const foodRoute= require("./routes/foods");
 const searchplace= require("./routes/searchplace");
 const hotplaceRoute= require("./routes/hotplaces");
 //use route
+
 app.use(userRoute);
 app.use("/places", placeRoute);
 app.use("/hotels", hotelRoute);
@@ -31,6 +37,7 @@ mongoose.connect(
   },
   () => console.log("Connected DB")
 );
+
 
 // app.listen(port, () =>
 //   console.log(`App listening at http://localhost:${port}`)
