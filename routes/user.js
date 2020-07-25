@@ -246,6 +246,20 @@ router.post('/users/me/logoutall', auth, async(req, res) => {
         res.status(500).send(error);
     }
 });
+router.delete("/admins/:_id", auth, async (req, res) => {
+    if (req.user.isAdmin === true ) {
+        try {
+            const removedUser = await User.findByIdAndRemove(req.params._id)
+            res.json({message:"Delete user success",removedUser});
+        } catch (err) {
+            res.json({message: err});
+        }
+    } else {
+        res
+            .status(400)
+            .send({message: "Only admin is permitted"});
+    }
+});
 
 
 module.exports = router;
