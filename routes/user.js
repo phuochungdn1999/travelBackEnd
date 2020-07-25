@@ -212,7 +212,7 @@ router.post('/users/me/update', auth, async(req, res) => {
             user.save().then((user)=>{
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
-                res.json(user);
+                res.json({message:"User updated success",user});
             },(error)=>next(error));
             
         }
