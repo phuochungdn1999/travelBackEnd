@@ -1,5 +1,4 @@
 const express = require("express");
-var cors = require('cors')
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const app = express();
@@ -8,10 +7,6 @@ app.use(bodyParser.json());
 const port = 3500;
 
 //import routes
-app.use(cors())
- app.listen(80, function () {
-  console.log('CORS-enabled web server listening on port 80')
-})
 const userRoute = require("./routes/user");
 const placeRoute = require("./routes/places");
 const hotelRoute = require("./routes/hotels");
@@ -20,6 +15,11 @@ const searchplace= require("./routes/searchplace");
 const hotplaceRoute= require("./routes/hotplaces");
 //use route
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 app.use(userRoute);
 app.use("/places", placeRoute);
 app.use("/hotels", hotelRoute);
