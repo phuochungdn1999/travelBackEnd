@@ -61,7 +61,7 @@ router.post('/users', async (req, res,next) => {
         await user.save();
         const token = await user.generateAuthToken();
         res.status(201).send({ message:"Signup successful",user:{
-            username:user.username,             
+            user:user,             
         }, token 
         });
         
@@ -82,10 +82,11 @@ router.post('/mods', async (req, res,next) => {
         })
         
         const user = new User(req.body);
+        user.isMod = true;
         await user.save();
         const token = await user.generateAuthToken();
         res.status(201).send({ message:"Mod signup successful",user:{
-            username:user.username,             
+            user:user,             
         }, token 
         });
         
@@ -106,10 +107,11 @@ router.post('/admins', async (req, res,next) => {
         })
         
         const user = new User(req.body);
+        user.isAdmin = true;
         await user.save();
         const token = await user.generateAuthToken();
         res.status(201).send({ message:"Admin signup successful",user:{
-            username:user.username,             
+            user:user,             
         }, token 
         });
         
