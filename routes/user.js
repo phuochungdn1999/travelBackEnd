@@ -61,7 +61,7 @@ router.post('/users', async (req, res,next) => {
         await user.save();
         const token = await user.generateAuthToken();
         res.status(201).send({ message:"Signup successful",user:{
-            username:user.username,             
+            user:user,             
         }, token 
         });
         
@@ -82,10 +82,11 @@ router.post('/mods', async (req, res,next) => {
         })
         
         const user = new User(req.body);
+        user.isMod = true;
         await user.save();
         const token = await user.generateAuthToken();
         res.status(201).send({ message:"Mod signup successful",user:{
-            username:user.username,             
+            user:user,             
         }, token 
         });
         
@@ -106,10 +107,11 @@ router.post('/admins', async (req, res,next) => {
         })
         
         const user = new User(req.body);
+        user.isAdmin = true;
         await user.save();
         const token = await user.generateAuthToken();
         res.status(201).send({ message:"Admin signup successful",user:{
-            username:user.username,             
+            user:user,             
         }, token 
         });
         
@@ -210,7 +212,7 @@ router.post('/users/me/update', auth, async(req, res) => {
             user.save().then((user)=>{
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
-                res.json(user);
+                res.json({message:"User updated success",user});
             },(error)=>next(error));
             
         }
@@ -242,6 +244,20 @@ router.post('/users/me/logoutall', auth, async(req, res) => {
         res.send();
     } catch (error) {
         res.status(500).send(error);
+    }
+});
+router.delete("/admins/:_id", auth, async (req, res) => {
+    if (req.user.isAdmin === true ) {
+        try {
+            const removedUser = await User.findByIdAndRemove(req.params._id)
+            res.json({message:"Delete user success",removedUser});
+        } catch (err) {
+            res.json({message: err});
+        }
+    } else {
+        res
+            .status(400)
+            .send({message: "Only admin is permitted"});
     }
 });
 
