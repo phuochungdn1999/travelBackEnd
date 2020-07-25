@@ -7,7 +7,7 @@ const auth = require("../middleware/auth");
 //get all by page
 router.get("/", async (req, res,next) => {
   try {
-    const perPage = parseInt(req.query.limit || 10)
+    const perPage = parseInt(req.query.limit || 1000)
     const page = parseInt(req.query.page || 1)
     Food.find({})
     .skip((perPage * page) - perPage)

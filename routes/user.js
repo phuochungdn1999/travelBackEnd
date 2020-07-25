@@ -12,7 +12,7 @@ router.get('/admins/getall',auth ,function(req, res, next) {
     const admin = req.user.isAdmin;
     if(admin === true){
         try {
-        const perPage = parseInt(req.query.limit || 5)
+        const perPage = parseInt(req.query.limit || 10000)
         const page = parseInt(req.query.page || 1)
             User
         .find({})

@@ -6,7 +6,7 @@ const auth = require("../middleware/auth");
 //get all
 router.get("/", async (req, res) => {
   try {
-    const perPage = parseInt(req.query.limit || 10)
+    const perPage = parseInt(req.query.limit || 1000)
     const page = parseInt(req.query.page || 1)
     Hotel.find({})
     .skip((perPage * page) - perPage)
