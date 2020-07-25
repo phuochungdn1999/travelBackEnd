@@ -73,7 +73,7 @@ router.delete("/:foodId", async (req, res) => {
   }
 });
 //update by id
-router.patch("/:foodId", async (req, res) => {
+router.put("/:foodId", async (req, res) => {
   try {
     const updatedFood = await Food.updateOne(
       { _id: req.params.foodId },

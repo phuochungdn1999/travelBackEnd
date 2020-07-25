@@ -62,7 +62,7 @@ router.delete("/:_id", async (req, res) => {
   }
 });
 //update by id
-router.patch("/:_id", async (req, res) => {
+router.put("/:_id", async (req, res) => {
   try {
     const updatedPlace = await Place.updateOne(
       { _id: req.params._id },
