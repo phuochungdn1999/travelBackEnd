@@ -7,14 +7,11 @@ require("dotenv/config");
 app.use(bodyParser.json());
 const port = 3500;
 
-app.use(cors())
-
-app.get('/', function (req, res, next) {
-  res.json({msg: 'This is CORS-enabled for all origins!'})
-})
-
-app.listen(80, function () {
-  console.log('CORS-enabled web server listening on port 80')
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', "*");
+  res.header('Access-Control-Allow-Methods','GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
 })
 //import routes
 const userRoute = require("./routes/user");
